@@ -14,7 +14,16 @@ namespace EKupi.Domain.Entities
         public int UnitsInStock { get; set; }
         public decimal UnitPrice { get; set; }
 
+        public virtual ICollection<ProductRelationship> SubProducts { get; set; }
+        public virtual ICollection<ProductRelationship> SubProductOf { get; set; }
+
         public virtual Category Category { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
+
+        public Product()
+        {
+            SubProducts = new List<ProductRelationship>();
+            SubProductOf = new List<ProductRelationship>();
+        }
     }
 }

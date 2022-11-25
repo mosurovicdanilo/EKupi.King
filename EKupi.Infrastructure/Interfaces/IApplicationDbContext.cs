@@ -14,6 +14,7 @@ namespace EKupi.Infrastructure.Interfaces
         DbSet<Order> Orders { get; set; }
         DbSet<OrderDetail> OrderDetails { get; set; }
         DbSet<Product> Products { get; set; }
+        DbSet<ProductRelationship> ProductRelationships { get; set; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
