@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EKupi.Application.Orders.Commands
+namespace EKupi.Application.Products.Commands
 {
     public class AddProductCommand : IRequest
     {

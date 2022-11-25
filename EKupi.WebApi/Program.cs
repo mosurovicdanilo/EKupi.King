@@ -21,7 +21,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DatabaseConnection"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DatabaseConnection"))
+    .LogTo(Console.WriteLine, LogLevel.Information);
 });
 
 builder.Services.AddIdentity<Customer, IdentityRole>(options =>

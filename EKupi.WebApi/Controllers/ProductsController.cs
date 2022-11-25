@@ -1,4 +1,5 @@
-﻿using EKupi.Application.Orders.Commands;
+﻿using EKupi.Application.Products.Commands;
+using EKupi.Application.Products.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -21,6 +22,12 @@ namespace EKupi.WebApi.Controllers
         {
             await _mediator.Send(command);
             return Ok();
+        }
+
+        [HttpGet("/products")]
+        public async Task<IActionResult> Products(bool isAscending)
+        {
+            return Ok(await _mediator.Send(new ProductQuery(isAscending)));
         }
     }
 }
