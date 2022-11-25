@@ -2,6 +2,7 @@
 using EKupi.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace EKupi.WebApi.Controllers
 {
@@ -19,8 +20,20 @@ namespace EKupi.WebApi.Controllers
         [HttpPost("/register")]
         public async Task<IActionResult> Register(RegisterCustomerCommand command)
         {
-            var result = await _mediator.Send(command);
+            await _mediator.Send(command);
 
+            return Ok();
+        }
+
+        [HttpPost("/login")]
+        public async Task<IActionResult> Login(LoginCustomerCommand command)
+        {
+            return Ok(await _mediator.Send(command));
+        }
+
+        [HttpPost("/logout")]
+        public async Task<IActionResult> Register()
+        {
             return Ok();
         }
     }

@@ -1,5 +1,5 @@
-﻿using EKupi.Application.Common.Interfaces;
-using EKupi.Domain.Entities;
+﻿using EKupi.Domain.Entities;
+using EKupi.Infrastructure.Interfaces;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -45,17 +45,14 @@ namespace EKupi.Application.Customers.Commands
     {
         private readonly IApplicationDbContext _context;
         private readonly UserManager<Customer> _userManager;
-        private readonly SignInManager<Customer> _signInManager;
 
 
         public RegisterCustomerCommandHandler(
             IApplicationDbContext context,
-            UserManager<Customer> userManager,
-            SignInManager<Customer> signInManager)
+            UserManager<Customer> userManager)
         {
             _context = context;
             _userManager = userManager;
-            _signInManager = signInManager;
         }
 
         public async Task<Unit> Handle(RegisterCustomerCommand request, CancellationToken cancellationToken)
@@ -68,10 +65,12 @@ namespace EKupi.Application.Customers.Commands
             };
 
             var result = await _userManager.CreateAsync(customer, request.Password);
+
             if (result.Succeeded)
             {
                 await _context.SaveChangesAsync(cancellationToken);
             }
+
             return Unit.Value;
         }
     }

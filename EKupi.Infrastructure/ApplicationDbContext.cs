@@ -1,5 +1,5 @@
-﻿using EKupi.Application.Common.Interfaces;
-using EKupi.Domain.Entities;
+﻿using EKupi.Domain.Entities;
+using EKupi.Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;

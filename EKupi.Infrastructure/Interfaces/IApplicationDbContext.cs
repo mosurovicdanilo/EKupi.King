@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EKupi.Application.Common.Interfaces
+namespace EKupi.Infrastructure.Interfaces
 {
     public interface IApplicationDbContext
     {

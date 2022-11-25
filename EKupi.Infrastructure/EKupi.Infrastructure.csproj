@@ -21,7 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EKupi.Application\EKupi.Application.csproj" />
     <ProjectReference Include="..\EKupi.Domain\EKupi.Domain.csproj" />
   </ItemGroup>
 
