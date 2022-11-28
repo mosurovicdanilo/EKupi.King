@@ -49,6 +49,7 @@ namespace EKupi.Application.Products.Commands
                 Name = request.Name,
                 UnitsInStock = request.UnitsInStock,
                 UnitPrice = request.UnitPrice,
+                IsDeleted = false,
             };
 
             foreach(var id in request.SubproductIds)

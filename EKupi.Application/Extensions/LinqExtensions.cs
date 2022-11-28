@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,10 +9,10 @@ namespace EKupi.Application.Extensions
 {
     public static class LinqExtensions
     {
-        public static IEnumerable<TSource> SortBy<TSource, TKey>(
-            this IEnumerable<TSource> source,
+        public static IQueryable<TSource> SortBy<TSource, TKey>(
+            this IQueryable<TSource> source,
             bool isAscending,
-            Func<TSource, TKey> keySelector
+            Expression<Func<TSource, TKey>> keySelector
         )
         {
             if (isAscending)

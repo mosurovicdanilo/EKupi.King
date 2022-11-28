@@ -15,29 +15,13 @@ namespace EKupi.Application.Products.Queries
     {
         public ProductQueryResponse()
         {
-            Products = new List<ProductDto>();
+            SubProducts = new List<string>();
         }
+        public string Name { get; set; }
         public string CategoryName { get; set; }
-        public IEnumerable<ProductDto> Products { get; set; }
-    }
-
-    public class ProductDto
-    {
-        public ProductDto()
-        {
-            SubProducts = new List<SubProductDto>();
-        }
-        public string Name { get; set; }
         public int UnitsInStock { get; set; }
         public decimal UnitPrice { get; set; }
-        public IEnumerable<SubProductDto> SubProducts { get; set; }
-    }
-
-    public class SubProductDto
-    {
-        public string Name { get; set; }
-        public int UnitsInStock { get; set; }
-        public decimal UnitPrice { get; set; }
+        public IEnumerable<string> SubProducts { get; set; }
     }
 
     public class ProductQuery : IRequest<IEnumerable<ProductQueryResponse>>
@@ -59,49 +43,16 @@ namespace EKupi.Application.Products.Queries
 
         public async Task<IEnumerable<ProductQueryResponse>> Handle(ProductQuery request, CancellationToken cancellationToken)
         {
-            var SubProducts = _context.ProductRelationships.Select(sp => new SubProductDto
-            {
-                Name = sp.RelatedProduct.Name,
-                UnitsInStock = sp.RelatedProduct.UnitsInStock,
-                UnitPrice = sp.RelatedProduct.UnitPrice
-            }).SortBy(request.IsAscending, sp => sp.UnitPrice);
-
-            var products = _context.Products.Select(p => new ProductDto
-            {
-                Name = p.Name,
-                UnitsInStock = p.UnitsInStock,
-                UnitPrice = p.UnitPrice,
-            }).SortBy(request.IsAscending, p => p.UnitPrice);
-
-            var combined = _context.Products.Select(p => new ProductDto
-            {
-                Name = p.Name,
-                UnitsInStock = p.UnitsInStock,
-                UnitPrice = p.UnitPrice,
-                SubProducts = p.SubProducts.Select(sp => new SubProductDto
-                {
-                    Name = sp.RelatedProduct.Name,
-                    UnitsInStock = sp.RelatedProduct.UnitsInStock,
-                    UnitPrice = sp.RelatedProduct.UnitPrice
-                }).SortBy(request.IsAscending, sp => sp.UnitPrice)
-            }).SortBy(request.IsAscending, p => p.UnitPrice);
-
-            var result = await _context.Categories.Select(c => new ProductQueryResponse
-            {
-                CategoryName = c.Name,
-                Products = c.Products.Select(p => new ProductDto
+            //todo fix
+            var result = await _context.Products.Where(p => !p.IsDeleted)
+                .Select(p => new ProductQueryResponse
                 {
                     Name = p.Name,
-                    UnitsInStock = p.UnitsInStock,
+                    CategoryName = p.Category.Name,
                     UnitPrice = p.UnitPrice,
-                    SubProducts = p.SubProducts.Select(sp => new SubProductDto
-                    {
-                        Name = sp.RelatedProduct.Name,
-                        UnitsInStock = sp.RelatedProduct.UnitsInStock,
-                        UnitPrice = sp.RelatedProduct.UnitPrice
-                    }).SortBy(request.IsAscending, sp => sp.UnitPrice)
-                }).SortBy(request.IsAscending, p => p.UnitPrice)
-            }).ToListAsync(cancellationToken);
+                    UnitsInStock = p.UnitsInStock,
+                    SubProducts = p.SubProducts.Select(sp => sp.RelatedProduct.Name)
+                }).SortBy(request.IsAscending, x => x.UnitPrice).ToListAsync(cancellationToken);
 
             return result;
         }

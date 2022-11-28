@@ -13,6 +13,7 @@ namespace EKupi.Domain.Entities
         public string Name { get; set; }
         public int UnitsInStock { get; set; }
         public decimal UnitPrice { get; set; }
+        public bool IsDeleted { get; set; }
 
         public virtual ICollection<ProductRelationship> SubProducts { get; set; }
         public virtual ICollection<ProductRelationship> SubProductOf { get; set; }

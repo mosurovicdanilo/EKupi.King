@@ -22,9 +22,7 @@ namespace EKupi.Infrastructure.Configurations
                 .IsRequired()
                 .HasMaxLength(100);
 
-            builder.Property(p => p.UnitsInStock).IsRequired();
-
-            builder.Property(p => p.UnitPrice).IsRequired();
+            builder.Property(p => p.IsDeleted).IsRequired();
 
             builder.HasOne(p => p.Category)
                 .WithMany(c => c.Products)
