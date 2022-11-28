@@ -13,9 +13,7 @@ namespace EKupi.Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<OrderDetail> builder)
         {
-            builder.HasKey(o => o.Id);
-
-            builder.Property(o => o.Id).ValueGeneratedOnAdd();
+            builder.HasKey(o => new { o.ProductId, o.OrderId });
 
             builder.Property(o => o.Price).IsRequired();
 
@@ -23,9 +21,13 @@ namespace EKupi.Infrastructure.Configurations
 
             builder.Property(o => o.Total).IsRequired();
 
-            builder.HasOne(p => p.Product)
-                .WithMany(c => c.OrderDetails)
-                .HasForeignKey(p => p.ProductId);
+            builder.HasOne(o => o.Product)
+                .WithMany(o => o.OrderDetails)
+                .HasForeignKey(o => o.ProductId);
+
+            builder.HasOne(o => o.Order)
+                .WithMany(o => o.OrderDetails)
+                .HasForeignKey(o => o.OrderId);
         }
     }
 }

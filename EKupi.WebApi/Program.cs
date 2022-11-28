@@ -1,14 +1,18 @@
 using EKupi.Application.Customers.Commands;
+using EKupi.Application.Services;
 using EKupi.Domain.Entities;
 using EKupi.Infrastructure;
 using EKupi.Infrastructure.AppSettings;
 using EKupi.Infrastructure.Interfaces;
+using EKupi.Infrastructure.Services;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.VisualBasic;
 using System.Reflection;
+using System.Security.Principal;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -48,15 +52,36 @@ builder.Services.AddAuthentication(options =>
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 })
-    .AddJwtBearer(options =>
+    .AddJwtBearer(options => {
+        options.Events = new JwtBearerEvents()
+        {
+            OnMessageReceived = context =>
+            {
+                var auth = context.Request.Cookies["authCookie"];
+
+                if (auth is not null)
+                {
+                    context.Request.Headers["Authorization"] = "Bearer " + auth;
+                    //context.Token = auth;
+                }
+                return Task.CompletedTask;
+            }
+        };
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuerSigningKey = true,
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenSettings.Secret)),
             ValidateIssuer = false,
             ValidateAudience = false,
-        }
-    );
+        };
+    }
+);
+
+builder.Services.AddScoped<IPrincipal>(f => f.GetRequiredService<IHttpContextAccessor>().HttpContext?.User);
+
+builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
+
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 

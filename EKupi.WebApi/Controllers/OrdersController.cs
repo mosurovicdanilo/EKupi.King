@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using EKupi.Application.Orders.Commands;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,10 +17,10 @@ namespace EKupi.WebApi.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Test()
+        [HttpPost("/order")]
+        public async Task<IActionResult> CreateOrder(CreateOrderCommand command)
         {
-            return Ok();
+            return Ok(_mediator.Send(command));
         }
     }
 }

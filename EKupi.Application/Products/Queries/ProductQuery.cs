@@ -43,7 +43,6 @@ namespace EKupi.Application.Products.Queries
 
         public async Task<IEnumerable<ProductQueryResponse>> Handle(ProductQuery request, CancellationToken cancellationToken)
         {
-            //todo fix
             var result = await _context.Products.Where(p => !p.IsDeleted)
                 .Select(p => new ProductQueryResponse
                 {

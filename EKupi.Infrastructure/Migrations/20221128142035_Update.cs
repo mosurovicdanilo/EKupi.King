@@ -5,7 +5,7 @@
 namespace EKupi.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class SubProducts : Migration
+    public partial class Update : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

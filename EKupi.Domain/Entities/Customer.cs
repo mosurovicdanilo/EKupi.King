@@ -14,5 +14,9 @@ namespace EKupi.Domain.Entities
 
         public virtual ICollection<Order> Orders { get; set; }
 
+        public Customer()
+        {
+            Orders = new List<Order>();
+        }
     }
 }

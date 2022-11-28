@@ -21,9 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Common\" />
     <Folder Include="Customers\Queries\" />
-    <Folder Include="Orders\Commands\" />
     <Folder Include="Orders\Queries\" />
   </ItemGroup>
 

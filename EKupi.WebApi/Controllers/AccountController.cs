@@ -1,6 +1,7 @@
 ﻿using EKupi.Application.Customers.Commands;
 using EKupi.Domain.Entities;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
@@ -32,7 +33,7 @@ namespace EKupi.WebApi.Controllers
         }
 
         [HttpPost("/logout")]
-        public async Task<IActionResult> Register()
+        public async Task<IActionResult> Logout()
         {
             return Ok();
         }

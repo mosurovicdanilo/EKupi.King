@@ -14,5 +14,11 @@ namespace EKupi.Domain.Entities
         public DateTime OrderDate { get; set; }
 
         public virtual Customer Customer { get; set; }
+        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
+
+        public Order()
+        {
+            OrderDetails = new List<OrderDetail>();
+        }
     }
 }

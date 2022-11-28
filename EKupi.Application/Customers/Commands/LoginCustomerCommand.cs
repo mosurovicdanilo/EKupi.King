@@ -1,35 +1,41 @@
-﻿using EKupi.Domain.Entities;
+﻿using EKupi.Application.Common;
+using EKupi.Domain.Entities;
 using EKupi.Infrastructure.AppSettings;
 using EKupi.Infrastructure.Interfaces;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.VisualBasic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
 namespace EKupi.Application.Customers.Commands
 {
-    public class LoginCustomerCommand : IRequest<string>
+    public class LoginCustomerCommand : IRequest
     {
         public string Username { get; set; }
         public string Password { get; set; }
     }
 
-    public class LoginCustomerCommandHandler : IRequestHandler<LoginCustomerCommand, string>
+    public class LoginCustomerCommandHandler : IRequestHandler<LoginCustomerCommand>
     {
         private readonly UserManager<Customer> _userManager;
         private readonly ITokenSettings _tokenSettings;
+        private IHttpContextAccessor _httpContextAccessor;
 
         public LoginCustomerCommandHandler(
             UserManager<Customer> userManager,
-            ITokenSettings tokenSettings)
+            ITokenSettings tokenSettings,
+            IHttpContextAccessor httpContextAccessor)
         {
             _userManager = userManager;
             _tokenSettings = tokenSettings;
+            _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<string> Handle(LoginCustomerCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(LoginCustomerCommand request, CancellationToken cancellationToken)
         {
             var user = await _userManager.FindByNameAsync(request.Username);
 
@@ -37,7 +43,9 @@ namespace EKupi.Application.Customers.Commands
             {
                 var authClaims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.Name, user.UserName),
+                    new Claim(ClaimTypes.NameIdentifier, user.Id),
+                    new Claim(CustomClaimTypes.FirstName, user.FirstName),
+                    new Claim(CustomClaimTypes.FamilyName, user.FamilyName)
                 };
 
                 var key = new SymmetricSecurityKey(Encoding.Default.GetBytes(_tokenSettings.Secret));
@@ -49,9 +57,15 @@ namespace EKupi.Application.Customers.Commands
                 );
                 var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
 
-                return tokenString;
+                _httpContextAccessor.HttpContext.Response.Cookies.Append("authCookie", tokenString, new CookieOptions()
+                {
+                    IsEssential = true,
+                    HttpOnly = true,
+                    Secure = false,
+                    SameSite = SameSiteMode.Lax,
+                });
             }
-            return string.Empty;
+            return Unit.Value;
         }
     }
 }
