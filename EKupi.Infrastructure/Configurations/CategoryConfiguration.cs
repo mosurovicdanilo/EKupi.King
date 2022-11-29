@@ -21,6 +21,34 @@ namespace EKupi.Infrastructure.Configurations
                 .IsRequired()
                 .HasMaxLength(50)
                 .IsRequired();
+
+            builder.HasData(
+                new Category
+                {
+                    Id = 1,
+                    Name = "Hrana"
+                },
+                new Category
+                {
+                    Id = 2,
+                    Name = "Piće"
+                },
+                new Category
+                {
+                    Id = 3,
+                    Name = "Elektronika"
+                },
+                new Category
+                {
+                    Id = 4,
+                    Name = "Materijal"
+                },
+                new Category
+                {
+                    Id = 5,
+                    Name = "Auto-moto"
+                }
+            );
         }
     }
 }

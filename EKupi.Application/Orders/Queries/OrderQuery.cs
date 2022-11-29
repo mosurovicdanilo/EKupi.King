@@ -1,4 +1,5 @@
-﻿using EKupi.Infrastructure.Interfaces;
+﻿using EKupi.Application.Services;
+using EKupi.Infrastructure.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -36,25 +37,31 @@ namespace EKupi.Application.Orders.Queries
     public class OrderQueryHandler : IRequestHandler<OrderQuery, IEnumerable<OrderQueryResponse>>
     {
         private readonly IApplicationDbContext _context;
-        public OrderQueryHandler(IApplicationDbContext context)
+        private readonly ICurrentUserService _currentUserService;
+
+        public OrderQueryHandler(
+            IApplicationDbContext context,
+            ICurrentUserService currentUserService)
         {
             _context = context;
+            _currentUserService = currentUserService;
         }
         public async Task<IEnumerable<OrderQueryResponse>> Handle(OrderQuery request, CancellationToken cancellationToken)
         {
-            var result = await _context.Orders.Select(x => new OrderQueryResponse
-            {
-                CustomerName = $"{x.Customer.FirstName} {x.Customer.FamilyName}",
-                OrderDate = x.OrderDate,
-                OrderNumber = x.OrderNumber,
-                OrderDetails = x.OrderDetails.Select(od => new OrderDetailsDto
+            var result = await _context.Orders.Where(x => x.CustomerId == _currentUserService.UserId)
+                .Select(x => new OrderQueryResponse
                 {
-                    Product = od.Product.Name,
-                    Price = od.Price,
-                    Quantity = od.Quantity,
-                    Total = od.Total,
-                })
-            }).ToListAsync(cancellationToken);
+                    CustomerName = $"{x.Customer.FirstName} {x.Customer.FamilyName}",
+                    OrderDate = x.OrderDate,
+                    OrderNumber = x.OrderNumber,
+                    OrderDetails = x.OrderDetails.Select(od => new OrderDetailsDto
+                    {
+                        Product = od.Product.Name,
+                        Price = od.Price,
+                        Quantity = od.Quantity,
+                        Total = od.Total,
+                    })
+                }).ToListAsync(cancellationToken);
 
             return result;
         }
