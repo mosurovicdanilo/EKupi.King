@@ -2,6 +2,7 @@
 using EKupi.Domain.Entities;
 using EKupi.Infrastructure.Interfaces;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,8 +43,8 @@ namespace EKupi.Application.Orders.Commands
 
         public async Task<Unit> Handle(EditOrderCommand request, CancellationToken cancellationToken)
         {
-            var order = _context.Orders.FirstOrDefault(x => x.Id == request.Id);
-            var customer = _context.Customers.FirstOrDefault(x => x.Id == request.CustomerId);
+            var order = await _context.Orders.FirstOrDefaultAsync(x => x.Id == request.Id);
+            var customer = await _context.Customers.FirstOrDefaultAsync(x => x.Id == request.CustomerId);
 
             if (order == null || customer == null)
             {

@@ -47,7 +47,7 @@ namespace EKupi.Application.Orders.Commands
             };
             foreach(OrderDetailDto detail in request.OrderDetails)
             {
-                var product = _context.Products.FirstOrDefault(x => x.Id == detail.ProductId);
+                var product = await _context.Products.FirstOrDefaultAsync(x => x.Id == detail.ProductId, cancellationToken);
 
                 if(product == null)
                 {
