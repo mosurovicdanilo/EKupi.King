@@ -11,17 +11,17 @@ namespace EKupi.Application.Products.Commands
 {
     public class DeleteProductCommand : IRequest<Unit>
     {
-        public DeleteProductCommand(int id) 
+        public DeleteProductCommand(long id) 
         {
             Id = id;
         }
-        public int Id { get; set; }
+        public long Id { get; set; }
     }
 
-    public class DeleteProductCOmmandHandler : IRequestHandler<DeleteProductCommand, Unit>
+    public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand, Unit>
     {
         private IApplicationDbContext _context;
-        public DeleteProductCOmmandHandler(IApplicationDbContext context)
+        public DeleteProductCommandHandler(IApplicationDbContext context)
         {
             _context = context;
         }

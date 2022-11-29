@@ -22,7 +22,6 @@
 
   <ItemGroup>
     <Folder Include="Customers\Queries\" />
-    <Folder Include="Orders\Queries\" />
   </ItemGroup>
 
 </Project>

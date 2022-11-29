@@ -11,6 +11,7 @@ namespace EKupi.Infrastructure.Interfaces
     public interface IApplicationDbContext
     {
         DbSet<Category> Categories { get; set; }
+        DbSet<Customer> Customers { get; set; }
         DbSet<Order> Orders { get; set; }
         DbSet<OrderDetail> OrderDetails { get; set; }
         DbSet<Product> Products { get; set; }

@@ -45,8 +45,20 @@ namespace EKupi.Application.Orders.Commands
                 OrderNumber = Guid.NewGuid(),
                 OrderDate = DateTime.Now
             };
-            /*foreach(OrderDetailDto detail in request.OrderDetails)
+            foreach(OrderDetailDto detail in request.OrderDetails)
             {
+                var product = _context.Products.FirstOrDefault(x => x.Id == detail.ProductId);
+
+                if(product == null)
+                {
+                    throw new Exception();
+                }
+
+                if((product.UnitsInStock - detail.Quantity) < 0)
+                {
+                    throw new Exception();
+                }
+
                 order.OrderDetails.Add(new OrderDetail
                 {
                     ProductId = detail.ProductId,
@@ -54,7 +66,8 @@ namespace EKupi.Application.Orders.Commands
                     Quantity = detail.Quantity,
                     Total = detail.Price * detail.Quantity
                 });
-            }*/
+                product.UnitsInStock = product.UnitsInStock -= detail.Quantity;
+            }
             _context.Orders.Add(order);
 
             await _context.SaveChangesAsync(cancellationToken);
