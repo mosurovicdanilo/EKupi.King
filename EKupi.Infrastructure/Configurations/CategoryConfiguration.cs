@@ -15,12 +15,9 @@ namespace EKupi.Infrastructure.Configurations
         {
             builder.HasKey(c => c.Id);
 
-            builder.Property(c => c.Id).ValueGeneratedOnAdd();
-
             builder.Property(c => c.Name)
                 .IsRequired()
-                .HasMaxLength(50)
-                .IsRequired();
+                .HasMaxLength(50);
 
             builder.HasData(
                 new Category

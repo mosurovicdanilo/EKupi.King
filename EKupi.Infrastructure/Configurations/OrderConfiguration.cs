@@ -15,8 +15,6 @@ namespace EKupi.Infrastructure.Configurations
         {
             builder.HasKey(o => o.Id);
 
-            builder.Property(o => o.Id).ValueGeneratedOnAdd();
-
             builder.Property(o => o.OrderNumber).IsRequired();
 
             builder.Property(o => o.OrderDate).IsRequired();

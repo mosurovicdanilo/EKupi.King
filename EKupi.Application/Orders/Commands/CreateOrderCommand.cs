@@ -1,14 +1,9 @@
-﻿using EKupi.Application.Products.Commands;
-using EKupi.Application.Services;
+﻿using EKupi.Application.Services;
 using EKupi.Domain.Entities;
 using EKupi.Infrastructure.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace EKupi.Application.Orders.Commands
 {
@@ -41,7 +36,7 @@ namespace EKupi.Application.Orders.Commands
         {
             var order = new Order
             {
-                CustomerId = "05d7a662-40e1-4d24-a90b-56488de2bc8c",
+                CustomerId = _currentUserService.UserId,
                 OrderNumber = Guid.NewGuid(),
                 OrderDate = DateTime.Now
             };
