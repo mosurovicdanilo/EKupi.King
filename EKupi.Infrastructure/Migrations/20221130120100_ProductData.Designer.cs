@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EKupi.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221128142035_Update")]
-    partial class Update
+    [Migration("20221130120100_ProductData")]
+    partial class ProductData
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -41,6 +41,33 @@ namespace EKupi.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Hrana"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Piće"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Elektronika"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Materijal"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Auto-moto"
+                        });
                 });
 
             modelBuilder.Entity("EKupi.Domain.Entities.Order", b =>
@@ -386,7 +413,7 @@ namespace EKupi.Infrastructure.Migrations
                     b.HasOne("EKupi.Domain.Entities.Order", "Order")
                         .WithMany("OrderDetails")
                         .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("EKupi.Domain.Entities.Product", "Product")

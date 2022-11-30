@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace EKupi.WebApi.Controllers
 {
@@ -55,7 +56,7 @@ namespace EKupi.WebApi.Controllers
             return Ok(await _mediator.Send(new ProductSalesPerMonthQuery()));
         }
 
-        [HttpPost("edit")]
+        [HttpPut]
         public async Task<IActionResult> EditOrder(EditOrderCommand command)
         {
             return Ok(await _mediator.Send(command));

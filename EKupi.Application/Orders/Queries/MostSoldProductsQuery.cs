@@ -1,6 +1,7 @@
 ﻿using EKupi.Application.Products.Queries;
 using EKupi.Infrastructure.Interfaces;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,13 +31,14 @@ namespace EKupi.Application.Orders.Queries
 
         public async Task<IEnumerable<MostSoldProductsQueryResponse>> Handle(MostSoldProductsQuery request, CancellationToken cancellationToken)
         {
-            var result = _context.Products.Where(x => x.OrderDetails.Any())
+            var result = await _context.Products.Where(x => x.OrderDetails.Any())
                 .Select(x => new MostSoldProductsQueryResponse
                 {
                     Name = x.Name,
                     Quantity = x.OrderDetails.Select(y => y.Quantity).Sum(),
                 }).OrderByDescending(x => x.Quantity)
-                .Take(10);
+                .Take(10)
+                .ToListAsync();
 
             return result;
         }

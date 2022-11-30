@@ -19,19 +19,19 @@ namespace EKupi.WebApi.Controllers
             _mediator = mediator;
         }
 
-        [HttpPost()]
+        [HttpPost]
         public async Task<IActionResult> AddProduct(AddProductCommand command)
         {
             return Ok(await _mediator.Send(command));
         }
 
-        [HttpGet()]
+        [HttpGet]
         public async Task<IActionResult> Products(bool isAscending)
         {
             return Ok(await _mediator.Send(new ProductQuery(isAscending)));
         }
 
-        [HttpPost("edit")]
+        [HttpPut]
         public async Task<IActionResult> EditProduct(EditProductCommand command)
         {
             return Ok(await _mediator.Send(command));

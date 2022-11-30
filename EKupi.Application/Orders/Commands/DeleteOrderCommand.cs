@@ -1,4 +1,5 @@
-﻿using EKupi.Application.Products.Commands;
+﻿using EKupi.Application.Common.Exceptions;
+using EKupi.Application.Products.Commands;
 using EKupi.Domain.Entities;
 using EKupi.Infrastructure.Interfaces;
 using MediatR;
@@ -35,7 +36,7 @@ namespace EKupi.Application.Orders.Commands
 
             if (order == null)
             {
-                throw new Exception();
+                throw new NotFoundException("Order not found");
             }
 
             foreach(OrderDetail detail in order.OrderDetails)
@@ -43,7 +44,9 @@ namespace EKupi.Application.Orders.Commands
                 _context.Products.Find(detail.ProductId).UnitsInStock += detail.Quantity;
             }
 
+            _context.OrderDetails.RemoveRange(_context.OrderDetails.Where(x => x.ProductId == request.Id));
             _context.Orders.Remove(order);
+
             await _context.SaveChangesAsync(cancellationToken);
 
             return Unit.Value;

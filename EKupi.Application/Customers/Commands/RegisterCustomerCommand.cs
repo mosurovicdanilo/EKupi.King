@@ -1,4 +1,5 @@
-﻿using EKupi.Domain.Entities;
+﻿using EKupi.Application.Common.Exceptions;
+using EKupi.Domain.Entities;
 using EKupi.Infrastructure.Interfaces;
 using FluentValidation;
 using MediatR;
@@ -69,6 +70,10 @@ namespace EKupi.Application.Customers.Commands
             if (result.Succeeded)
             {
                 await _context.SaveChangesAsync(cancellationToken);
+            }
+            else
+            {
+                throw new Exception("Something went wrong while registering");
             }
 
             return Unit.Value;

@@ -1,4 +1,5 @@
-﻿using EKupi.Application.Products.Commands;
+﻿using EKupi.Application.Common.Exceptions;
+using EKupi.Application.Products.Commands;
 using EKupi.Domain.Entities;
 using EKupi.Infrastructure.Interfaces;
 using MediatR;
@@ -46,9 +47,14 @@ namespace EKupi.Application.Orders.Commands
             var order = await _context.Orders.FirstOrDefaultAsync(x => x.Id == request.Id);
             var customer = await _context.Customers.FirstOrDefaultAsync(x => x.Id == request.CustomerId);
 
-            if (order == null || customer == null)
+            if (order == null)
             {
-                throw new Exception();
+                throw new NotFoundException("Order not found");
+            }
+
+            if(customer == null)
+            {
+                throw new NotFoundException("Customer not found");
             }
 
             order.CustomerId = request.CustomerId;

@@ -1,4 +1,5 @@
-﻿using EKupi.Domain.Entities;
+﻿using EKupi.Application.Common.Exceptions;
+using EKupi.Domain.Entities;
 using EKupi.Infrastructure.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -14,7 +15,7 @@ namespace EKupi.Application.Products.Commands
     {
         public EditProductCommand()
         {
-            
+            SubproductIds = new List<long>();
         }
         public int Id { get; set; }
         public int CategoryId { get; set; }
@@ -39,7 +40,7 @@ namespace EKupi.Application.Products.Commands
 
             if(product == null)
             {
-                throw new Exception();
+                throw new NotFoundException("Product not found");
             }
 
             product.CategoryId = request.CategoryId;

@@ -1,4 +1,5 @@
-﻿using EKupi.Infrastructure.Interfaces;
+﻿using EKupi.Application.Common.Exceptions;
+using EKupi.Infrastructure.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -32,7 +33,7 @@ namespace EKupi.Application.Products.Commands
 
             if (product == null)
             {
-                throw new Exception();
+                throw new NotFoundException("Product not found");
             }
             product.IsDeleted = true;
             await _context.SaveChangesAsync(cancellationToken);

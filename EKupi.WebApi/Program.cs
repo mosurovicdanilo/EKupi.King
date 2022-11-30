@@ -1,3 +1,4 @@
+using EKupi.Application;
 using EKupi.Application.Customers.Commands;
 using EKupi.Application.Services;
 using EKupi.Domain.Entities;
@@ -87,7 +88,7 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    await context.Database.EnsureCreatedAsync();
+    await context.Database.MigrateAsync();
 }
 
 // Configure the HTTP request pipeline.
@@ -102,6 +103,8 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 
 app.UseAuthorization();
+
+app.UseMiddleware<ExceptionHandler>();
 
 app.MapControllers();
 

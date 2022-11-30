@@ -1,4 +1,5 @@
-﻿using EKupi.Application.Services;
+﻿using EKupi.Application.Common.Exceptions;
+using EKupi.Application.Services;
 using EKupi.Domain.Entities;
 using EKupi.Infrastructure.Interfaces;
 using MediatR;
@@ -9,6 +10,10 @@ namespace EKupi.Application.Orders.Commands
 {
     public class CreateOrderCommand : IRequest
     {
+        public CreateOrderCommand()
+        {
+            OrderDetails = new List<OrderDetailDto>();
+        }
         public IEnumerable<OrderDetailDto> OrderDetails { get; set; }
     }
 
@@ -34,24 +39,35 @@ namespace EKupi.Application.Orders.Commands
 
         public async Task<Unit> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
         {
+
             var order = new Order
             {
                 CustomerId = _currentUserService.UserId,
                 OrderNumber = Guid.NewGuid(),
                 OrderDate = DateTime.Now
             };
-            foreach(OrderDetailDto detail in request.OrderDetails)
+
+            var products = await _context.Products.Where(x => request.OrderDetails.Select(od => od.ProductId).Contains(x.Id))
+                .ToListAsync();
+
+            var productsWithInsufficientUnitsInStock = products.Where(x => x.UnitsInStock - request.OrderDetails.Where(y => y.ProductId == x.Id).Sum(u => u.Quantity) < 0);
+            if (productsWithInsufficientUnitsInStock.Any())
             {
-                var product = await _context.Products.FirstOrDefaultAsync(x => x.Id == detail.ProductId, cancellationToken);
+                string error = "Following products have insufficient units in stock: ";
+                foreach(var product in productsWithInsufficientUnitsInStock)
+                {
+                    error = error + ", " + product.Name;
+                }
+                throw new ForbiddenException(error);
+            }
+
+            foreach(var detail in request.OrderDetails)
+            {
+                var product = products.FirstOrDefault(x => x.Id == detail.ProductId);
 
                 if(product == null)
                 {
-                    throw new Exception();
-                }
-
-                if((product.UnitsInStock - detail.Quantity) < 0)
-                {
-                    throw new Exception();
+                    throw new NotFoundException("Product not found");
                 }
 
                 order.OrderDetails.Add(new OrderDetail

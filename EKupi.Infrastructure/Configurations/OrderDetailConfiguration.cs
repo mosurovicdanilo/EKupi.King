@@ -27,7 +27,8 @@ namespace EKupi.Infrastructure.Configurations
 
             builder.HasOne(o => o.Order)
                 .WithMany(o => o.OrderDetails)
-                .HasForeignKey(o => o.OrderId);
+                .HasForeignKey(o => o.OrderId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

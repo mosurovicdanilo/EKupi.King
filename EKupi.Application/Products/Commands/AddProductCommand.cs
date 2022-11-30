@@ -1,9 +1,11 @@
-﻿using EKupi.Application.Customers.Commands;
+﻿using EKupi.Application.Common.Exceptions;
+using EKupi.Application.Customers.Commands;
 using EKupi.Domain.Entities;
 using EKupi.Infrastructure.Interfaces;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +16,10 @@ namespace EKupi.Application.Products.Commands
 {
     public class AddProductCommand : IRequest
     {
+        public AddProductCommand()
+        {
+            SubproductIds = new List<long>();
+        }
         public int CategoryId { get; set; }
         public string Name { get; set; }
         public int UnitsInStock { get; set; }
@@ -43,6 +49,13 @@ namespace EKupi.Application.Products.Commands
 
         public async Task<Unit> Handle(AddProductCommand request, CancellationToken cancellationToken)
         {
+            var category = await _context.Categories.FirstOrDefaultAsync(x => x.Id == request.CategoryId);
+
+            if(category == null)
+            {
+                throw new NotFoundException("Category not found");
+            }
+
             var product = new Product
             {
                 CategoryId = request.CategoryId,

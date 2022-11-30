@@ -410,7 +410,7 @@ namespace EKupi.Infrastructure.Migrations
                     b.HasOne("EKupi.Domain.Entities.Order", "Order")
                         .WithMany("OrderDetails")
                         .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("EKupi.Domain.Entities.Product", "Product")
