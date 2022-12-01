@@ -1,4 +1,4 @@
-﻿using EKupi.Infrastructure.Interfaces;
+﻿using EKupi.Application.Interfaces;
 
 namespace EKupi.Infrastructure.AppSettings
 {

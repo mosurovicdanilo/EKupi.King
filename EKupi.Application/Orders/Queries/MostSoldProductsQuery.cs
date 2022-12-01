@@ -1,5 +1,5 @@
 ﻿using EKupi.Application.Products.Queries;
-using EKupi.Infrastructure.Interfaces;
+using EKupi.Application.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -36,9 +36,10 @@ namespace EKupi.Application.Orders.Queries
                 {
                     Name = x.Name,
                     Quantity = x.OrderDetails.Select(y => y.Quantity).Sum(),
-                }).OrderByDescending(x => x.Quantity)
+                })
+                .OrderByDescending(x => x.Quantity)
                 .Take(10)
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
 
             return result;
         }

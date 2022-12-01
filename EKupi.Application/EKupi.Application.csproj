@@ -18,7 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EKupi.Domain\EKupi.Domain.csproj" />
-    <ProjectReference Include="..\EKupi.Infrastructure\EKupi.Infrastructure.csproj" />
+    <ProjectReference Include="..\EKupi.Shared\EKupi.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>

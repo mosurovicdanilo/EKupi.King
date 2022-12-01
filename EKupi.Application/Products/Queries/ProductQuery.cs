@@ -1,5 +1,5 @@
 ﻿using EKupi.Application.Extensions;
-using EKupi.Infrastructure.Interfaces;
+using EKupi.Application.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -51,7 +51,9 @@ namespace EKupi.Application.Products.Queries
                     UnitPrice = p.UnitPrice,
                     UnitsInStock = p.UnitsInStock,
                     SubProducts = p.SubProducts.Select(sp => sp.RelatedProduct.Name)
-                }).SortBy(request.IsAscending, x => x.UnitPrice).ToListAsync(cancellationToken);
+                })
+                .SortBy(request.IsAscending, x => x.UnitPrice)
+                .ToListAsync(cancellationToken);
 
             return result;
         }

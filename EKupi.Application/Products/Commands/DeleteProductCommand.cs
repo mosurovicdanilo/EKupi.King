@@ -1,5 +1,5 @@
 ﻿using EKupi.Application.Common.Exceptions;
-using EKupi.Infrastructure.Interfaces;
+using EKupi.Application.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;

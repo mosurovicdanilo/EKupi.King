@@ -1,7 +1,6 @@
 ﻿using EKupi.Application.Common;
+using EKupi.Application.Interfaces;
 using EKupi.Domain.Entities;
-using EKupi.Infrastructure.AppSettings;
-using EKupi.Infrastructure.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;

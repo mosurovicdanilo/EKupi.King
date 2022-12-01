@@ -1,7 +1,7 @@
 ﻿using EKupi.Application.Common.Exceptions;
 using EKupi.Application.Customers.Commands;
 using EKupi.Domain.Entities;
-using EKupi.Infrastructure.Interfaces;
+using EKupi.Application.Interfaces;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Identity;

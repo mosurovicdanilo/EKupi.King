@@ -3,18 +3,19 @@ using EKupi.Application.Customers.Commands;
 using EKupi.Application.Services;
 using EKupi.Domain.Entities;
 using EKupi.Infrastructure;
-using EKupi.Infrastructure.AppSettings;
-using EKupi.Infrastructure.Interfaces;
+using EKupi.Application.Interfaces;
 using EKupi.Infrastructure.Services;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.VisualBasic;
 using System.Reflection;
 using System.Security.Principal;
 using System.Text;
+using EKupi.Infrastructure.AppSettings;
+using MassTransit;
+using EKupi.Infrastructure.Consumers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -46,6 +47,21 @@ builder.Services.AddSingleton<ITokenSettings>(options => {
 var tokenSettings = builder.Configuration.GetSection(nameof(TokenSettings)).Get<TokenSettings>();
 
 builder.Services.AddMediatR(typeof(LoginCustomerCommand).GetTypeInfo().Assembly);
+
+builder.Services.AddMassTransit(x =>
+{
+    x.AddConsumer<OrderCreatedConsumer>();
+
+    x.SetKebabCaseEndpointNameFormatter();
+
+    x.UsingRabbitMq((context, cfg) =>
+    {
+        cfg.ReceiveEndpoint("order-service", e =>
+        {
+            e.ConfigureConsumer<OrderCreatedConsumer>(context);
+        });
+    });
+});
 
 builder.Services.AddAuthentication(options =>
 {
