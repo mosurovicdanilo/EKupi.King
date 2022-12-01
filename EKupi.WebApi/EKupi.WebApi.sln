@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EKupi.WebApi", "EKupi.WebApi.csproj", "{7BA86171-6F52-422A-A055-EF325F64A1C0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EKupi.Domain", "..\EKupi.Domain\EKupi.Domain.csproj", "{31A22F4D-F6DB-441E-BA14-957F369341CA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EKupi.Application", "..\EKupi.Application\EKupi.Application.csproj", "{91BCF06C-5F67-443B-8652-16E69E1377FD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EKupi.Infrastructure", "..\EKupi.Infrastructure\EKupi.Infrastructure.csproj", "{2672AB64-1DC6-4299-A379-6C9C1355047C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EKupi.Publisher", "..\EKupi.Publisher\EKupi.Publisher.csproj", "{2580AF78-CAEF-43BF-8404-6DC3FAEE60B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EKupi.Shared", "..\EKupi.Shared\EKupi.Shared.csproj", "{47FD5A8A-26E6-41B2-B944-72A727E71FCC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7BA86171-6F52-422A-A055-EF325F64A1C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BA86171-6F52-422A-A055-EF325F64A1C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BA86171-6F52-422A-A055-EF325F64A1C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BA86171-6F52-422A-A055-EF325F64A1C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31A22F4D-F6DB-441E-BA14-957F369341CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31A22F4D-F6DB-441E-BA14-957F369341CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31A22F4D-F6DB-441E-BA14-957F369341CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31A22F4D-F6DB-441E-BA14-957F369341CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91BCF06C-5F67-443B-8652-16E69E1377FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91BCF06C-5F67-443B-8652-16E69E1377FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91BCF06C-5F67-443B-8652-16E69E1377FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91BCF06C-5F67-443B-8652-16E69E1377FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2672AB64-1DC6-4299-A379-6C9C1355047C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2672AB64-1DC6-4299-A379-6C9C1355047C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2672AB64-1DC6-4299-A379-6C9C1355047C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2672AB64-1DC6-4299-A379-6C9C1355047C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2580AF78-CAEF-43BF-8404-6DC3FAEE60B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2580AF78-CAEF-43BF-8404-6DC3FAEE60B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2580AF78-CAEF-43BF-8404-6DC3FAEE60B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2580AF78-CAEF-43BF-8404-6DC3FAEE60B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47FD5A8A-26E6-41B2-B944-72A727E71FCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47FD5A8A-26E6-41B2-B944-72A727E71FCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47FD5A8A-26E6-41B2-B944-72A727E71FCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47FD5A8A-26E6-41B2-B944-72A727E71FCC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A3A8715C-86CD-4FB0-9681-285C6F5A3006}
+	EndGlobalSection
+EndGlobal

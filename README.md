@@ -27,7 +27,7 @@ UML diagram baze podataka u prilogu.
 Bazu cu dodatno objasniti, narocito dio sto se tice ProductsRelationship i zasto postoji ta tablica.
 
 Za kreiranje DB koristiti Code First pristup. Svaka relacija u modelu mora biti definirana kroz fluent api.
-Kroz konfiguraciju inicijalno dodati podatke u bazu za šifrarnike.
+Kroz sql skriptu koju cemo programski pozvati pri startupu inicijalno dodati podatke u bazu za šifrarnike.
 Migracije pokrenuti pri statup-u aplikacije.
 
 Akcije:
@@ -38,6 +38,7 @@ AccountController
 	
 ProductsController: 
  - Prikaz proizvoda grupiranih po kategorijama, sa svojim podproizvodima, sorting po cijeni asc i desc
+ - Prikaz najprodavanijih proizvoda grupiranih po kategorijama
  - Dodavanje proizvoda i podproizvoda
  - Edit proizvoda i podproizvoda
  - Brisanje (soft delete) 
