@@ -17,6 +17,7 @@ namespace EKupi.Application.Products.Queries
         {
             SubProducts = new List<string>();
         }
+        public long Id { get; set; }
         public string Name { get; set; }
         public string CategoryName { get; set; }
         public int UnitsInStock { get; set; }
@@ -46,6 +47,7 @@ namespace EKupi.Application.Products.Queries
             var result = await _context.Products.Where(p => !p.IsDeleted)
                 .Select(p => new ProductQueryResponse
                 {
+                    Id = p.Id,
                     Name = p.Name,
                     CategoryName = p.Category.Name,
                     UnitPrice = p.UnitPrice,

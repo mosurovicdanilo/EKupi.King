@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\EKupi.Application\EKupi.Application.csproj" />
     <ProjectReference Include="..\EKupi.Shared\EKupi.Shared.csproj" />
   </ItemGroup>
 

@@ -16,6 +16,7 @@ using System.Text;
 using EKupi.Infrastructure.AppSettings;
 using MassTransit;
 using EKupi.Infrastructure.Consumers;
+using EKupi.Application.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +30,10 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DatabaseConnection"))
     .LogTo(Console.WriteLine, LogLevel.Information);
 });
+
+builder.Services.AddSignalR();
+
+builder.Services.AddCors();
 
 builder.Services.AddIdentity<Customer, IdentityRole>(options =>
 {
@@ -123,5 +128,13 @@ app.UseAuthorization();
 app.UseMiddleware<ExceptionHandler>();
 
 app.MapControllers();
+app.UseCors(x => x
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .SetIsOriginAllowed(origin => true) // allow any origin
+    .AllowCredentials()
+);
+
+app.MapHub<GuidGeneratorHub>("/guid-hub");
 
 app.Run();

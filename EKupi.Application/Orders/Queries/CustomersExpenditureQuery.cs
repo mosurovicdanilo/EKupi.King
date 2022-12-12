@@ -11,8 +11,7 @@ namespace EKupi.Application.Orders.Queries
 {
     public class CustomersExpenditureResponse
     {
-        public string FirstName { get; set; }
-        public string FamilyName { get; set; }
+        public string FullName { get; set; }
         public decimal Total { get; set; }
     }
 
@@ -33,8 +32,7 @@ namespace EKupi.Application.Orders.Queries
         {
             var result = await _context.Customers.Select(x => new CustomersExpenditureResponse
             {
-                FirstName = x.FirstName,
-                FamilyName = x.FamilyName,
+                FullName = $"{x.FirstName} {x.FamilyName}" ,
                 Total = x.Orders.SelectMany(o => o.OrderDetails).Sum(x => x.Price)
             }).OrderByDescending(x => x.Total)
             .ToListAsync();

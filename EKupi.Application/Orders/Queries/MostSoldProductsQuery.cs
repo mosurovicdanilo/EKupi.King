@@ -37,6 +37,7 @@ namespace EKupi.Application.Orders.Queries
                     Name = x.Name,
                     Quantity = x.OrderDetails.Select(y => y.Quantity).Sum(),
                 })
+                .Where(x => x.Quantity > 0)
                 .OrderByDescending(x => x.Quantity)
                 .Take(10)
                 .ToListAsync(cancellationToken);

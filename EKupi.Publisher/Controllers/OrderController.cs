@@ -1,8 +1,11 @@
-﻿using EKupi.Publisher.DTOs;
+﻿using EKupi.Application.Hubs;
+using EKupi.Publisher.DTOs;
 using EKupi.Shared;
 using MassTransit;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
 namespace EKupi.Publisher.Controllers
 {
@@ -11,9 +14,12 @@ namespace EKupi.Publisher.Controllers
     public class OrderController : ControllerBase
     {
         private readonly IPublishEndpoint _publishEndpoint;
-        public OrderController(IPublishEndpoint publishEndpoint)
+        private readonly IHubContext<GuidGeneratorHub> _hub;
+
+        public OrderController(IPublishEndpoint publishEndpoint, IHubContext<GuidGeneratorHub> hub)
         {
             _publishEndpoint = publishEndpoint;
+            _hub = hub;
         }
 
         [HttpPost]
@@ -24,6 +30,18 @@ namespace EKupi.Publisher.Controllers
                 orderDto.CustomerId,
                 orderDto.OrderDetails
             });
+            return Ok();
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> TestHub()
+        {
+            foreach (var item in Enumerable.Range(1, 100))
+            {
+                await _hub.Clients.All.SendAsync("NewGuid", Guid.NewGuid());
+                await Task.Delay(100);
+            }
             return Ok();
         }
     }

@@ -1,4 +1,6 @@
 ﻿using EKupi.Application.Customers.Commands;
+using EKupi.Application.Customers.Queries;
+using EKupi.Application.Products.Queries;
 using EKupi.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -36,6 +38,12 @@ namespace EKupi.WebApi.Controllers
         {
             Response.Cookies.Delete("authCookie");
             return Ok();
+        }
+
+        [HttpGet("users/{pageNumber}/{pageSize}")]
+        public async Task<IActionResult> GetProductList(int pageNumber, int pageSize)
+        {
+            return Ok(await _mediator.Send(new UserListQuery(pageNumber, pageSize)));
         }
     }
 }

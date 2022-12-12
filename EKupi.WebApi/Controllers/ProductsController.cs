@@ -25,7 +25,8 @@ namespace EKupi.WebApi.Controllers
             return Ok(await _mediator.Send(command));
         }
 
-        [HttpGet]
+        [AllowAnonymous]
+        [HttpGet("{isAscending}")]
         public async Task<IActionResult> Products(bool isAscending)
         {
             return Ok(await _mediator.Send(new ProductQuery(isAscending)));
@@ -41,6 +42,13 @@ namespace EKupi.WebApi.Controllers
         public async Task<IActionResult> DeleteProduct(long id)
         {
             return Ok(await _mediator.Send(new DeleteProductCommand(id)));
+        }
+
+        [AllowAnonymous]
+        [HttpGet("list/{pageNumber}/{pageSize}")]
+        public async Task<IActionResult> GetProductList(int pageNumber, int pageSize)
+        {
+            return Ok(await _mediator.Send(new ProductListQuery(pageNumber, pageSize)));
         }
     }
 }

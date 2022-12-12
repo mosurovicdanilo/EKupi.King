@@ -1,23 +1,26 @@
-﻿using EKupi.Application.Orders.Commands;
+﻿using EKupi.Application.Hubs;
+using EKupi.Application.Orders.Commands;
 using EKupi.Application.Orders.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using System.Net;
 
 namespace EKupi.WebApi.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class OrdersController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly IHubContext<GuidGeneratorHub> _hub;
 
-        public OrdersController(IMediator mediator)
+        public OrdersController(IMediator mediator, IHubContext<GuidGeneratorHub> hub)
         {
             _mediator = mediator;
+            _hub = hub;
         }
 
         [HttpGet]
@@ -38,6 +41,7 @@ namespace EKupi.WebApi.Controllers
             return Ok(await _mediator.Send(new DeleteOrderCommand(id)));
         }
 
+        [AllowAnonymous]
         [HttpGet("mostSoldProducts")]
         public async Task<IActionResult> GetMostSoldProducts()
         {
@@ -60,6 +64,18 @@ namespace EKupi.WebApi.Controllers
         public async Task<IActionResult> EditOrder(EditOrderCommand command)
         {
             return Ok(await _mediator.Send(command));
+        }
+
+        [HttpGet("testsignalr")]
+        [AllowAnonymous]
+        public async Task<IActionResult> TestHub()
+        {
+            foreach (var item in Enumerable.Range(1, 1000))
+            {
+                await _hub.Clients.All.SendAsync("NewGuid", Guid.NewGuid());
+                await Task.Delay(100);
+            }
+            return Ok();
         }
     }
 }
