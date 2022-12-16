@@ -44,7 +44,7 @@ namespace EKupi.Application.Products.Queries
 
         public async Task<ProductByIdQueryResponse> Handle(ProductByIdQuery request, CancellationToken cancellationToken)
         {
-            var product = await _context.Products.FirstOrDefaultAsync(p => p.Id == request.ProductId);
+            var product = await _context.Products.Include(x => x.Category).FirstOrDefaultAsync(p => p.Id == request.ProductId);
 
             if(product != null)
             {
