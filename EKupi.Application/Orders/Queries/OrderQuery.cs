@@ -32,6 +32,12 @@ namespace EKupi.Application.Orders.Queries
 
     public class OrderQuery : IRequest<IEnumerable<OrderQueryResponse>>
     {
+        public OrderQuery(string customerId)
+        {
+            CustomerId = customerId;
+        }
+
+        public string CustomerId { get; set; }
     }
 
     public class OrderQueryHandler : IRequestHandler<OrderQuery, IEnumerable<OrderQueryResponse>>
@@ -48,7 +54,7 @@ namespace EKupi.Application.Orders.Queries
         }
         public async Task<IEnumerable<OrderQueryResponse>> Handle(OrderQuery request, CancellationToken cancellationToken)
         {
-            var result = await _context.Orders.Where(x => x.CustomerId == _currentUserService.UserId)
+            var result = await _context.Orders.Where(x => x.CustomerId == request.CustomerId)
                 .Select(x => new OrderQueryResponse
                 {
                     CustomerName = $"{x.Customer.FirstName} {x.Customer.FamilyName}",

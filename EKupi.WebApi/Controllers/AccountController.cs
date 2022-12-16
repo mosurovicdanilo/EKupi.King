@@ -45,5 +45,11 @@ namespace EKupi.WebApi.Controllers
         {
             return Ok(await _mediator.Send(new UserListQuery(pageNumber, pageSize)));
         }
+
+        [HttpGet("user/{userid?}")]
+        public async Task<IActionResult> GetUser(string? userId = null)
+        {
+            return Ok(await _mediator.Send(new UserQuery(userId)));
+        }
     }
 }

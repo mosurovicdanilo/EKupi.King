@@ -23,10 +23,10 @@ namespace EKupi.WebApi.Controllers
             _hub = hub;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetOrders()
+        [HttpGet("{customerId}")]
+        public async Task<IActionResult> GetOrders(string customerId)
         {
-            return Ok(await _mediator.Send(new OrderQuery()));
+            return Ok(await _mediator.Send(new OrderQuery(customerId)));
         }
 
         [HttpPost]

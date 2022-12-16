@@ -21,7 +21,7 @@ namespace EKupi.Infrastructure.Migrations
                     { 2, "Piće" },
                     { 3, "Elektronika" },
                     { 4, "Materijal" },
-                    { 5, "Auto-moto" }
+                    { 5, "Automoto" }
                 });
         }
 

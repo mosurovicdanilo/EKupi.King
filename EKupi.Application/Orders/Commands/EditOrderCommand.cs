@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EKupi.Application.Services;
 
 namespace EKupi.Application.Orders.Commands
 {
@@ -37,16 +38,16 @@ namespace EKupi.Application.Orders.Commands
     {
         private readonly IApplicationDbContext _context;
 
-        public EditOrderCommandHandler(IApplicationDbContext context)
+        public EditOrderCommandHandler(IApplicationDbContext context, ICurrentUserService currentUserService)
         {
             _context = context;
         }
 
         public async Task<Unit> Handle(EditOrderCommand request, CancellationToken cancellationToken)
         {
+            
             var order = await _context.Orders.FirstOrDefaultAsync(x => x.Id == request.Id);
             var customer = await _context.Customers.FirstOrDefaultAsync(x => x.Id == request.CustomerId);
-
             if (order == null)
             {
                 throw new NotFoundException("Order not found");

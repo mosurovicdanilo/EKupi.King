@@ -57,14 +57,6 @@ namespace EKupi.Application.Customers.Commands
                 );
                 var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
 
-                /*_httpContextAccessor.HttpContext.Response.Cookies.Append("authCookie", tokenString, new CookieOptions()
-                {
-                    IsEssential = true,
-                    HttpOnly = true,
-                    Secure = true,
-                    SameSite = SameSiteMode.None,
-                });
-                return Unit.Value;*/
                 return tokenString;
             }
             throw new NotFoundException("Invalid credentials");
