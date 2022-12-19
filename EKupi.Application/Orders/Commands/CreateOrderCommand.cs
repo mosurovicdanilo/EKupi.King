@@ -40,13 +40,16 @@ namespace EKupi.Application.Orders.Commands
 
         public async Task<Unit> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
         {
-            var customer = _context.Customers.FirstOrDefault(x => x.Id == request.CustomerId);
-
-            if(customer == null)
+            if(request.CustomerId != null)
             {
-                throw new NotFoundException("Invalid customer");
-            }
+                var customer = _context.Customers.FirstOrDefault(x => x.Id == request.CustomerId);
 
+                if (customer == null)
+                {
+                    throw new NotFoundException("Invalid customer");
+                }
+            }
+            
             var order = new Order
             {
                 CustomerId = request.CustomerId ?? _currentUserService.UserId,
