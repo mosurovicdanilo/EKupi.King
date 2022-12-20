@@ -103,8 +103,8 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddAuthorization(options =>
 {
-    options.AddPolicy("user", policy => policy.RequireClaim(CustomClaimTypes.Permissions, PermissionPolicyEnum.User.ToString()));
-    options.AddPolicy("admin", policy => policy.RequireClaim(CustomClaimTypes.Permissions, PermissionPolicyEnum.Admin.ToString()));
+    options.AddPolicy(PermissionPolicyEnum.User.ToString(), policy => policy.RequireClaim(CustomClaimTypes.Permissions, PermissionPolicyEnum.User.ToString()));
+    options.AddPolicy(PermissionPolicyEnum.Admin.ToString(), policy => policy.RequireClaim(CustomClaimTypes.Permissions, PermissionPolicyEnum.Admin.ToString()));
 });
 
 builder.Services.AddScoped<IPrincipal>(f => f.GetRequiredService<IHttpContextAccessor>().HttpContext?.User);
