@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EKupi.Domain.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,5 +12,6 @@ namespace EKupi.Application.Services
         string UserId { get; set; }
         string FirstName { get; set; }
         string FamilyName { get; set; }
+        IList<PermissionPolicyEnum> Permissions { get; set; }
     }
 }

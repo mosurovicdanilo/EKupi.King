@@ -47,12 +47,12 @@ namespace EKupi.Application.Customers.Commands
                     new Claim(ClaimTypes.NameIdentifier, user.Id),
                     new Claim(CustomClaimTypes.FirstName, user.FirstName),
                     new Claim(CustomClaimTypes.FamilyName, user.FamilyName),
-                    new Claim("Permissions", PermissionPolicyEnum.User.ToString())
+                    new Claim(CustomClaimTypes.Permissions, PermissionPolicyEnum.User.ToString())
                 };
 
                 if(request.Username == "admin")
                 {
-                    authClaims.Add(new Claim("Permissions", PermissionPolicyEnum.Admin.ToString()));
+                    authClaims.Add(new Claim(CustomClaimTypes.Permissions, PermissionPolicyEnum.Admin.ToString()));
                 }
 
                 var key = new SymmetricSecurityKey(Encoding.Default.GetBytes(_tokenSettings.Secret));

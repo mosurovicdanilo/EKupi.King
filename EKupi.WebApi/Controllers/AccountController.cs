@@ -56,5 +56,12 @@ namespace EKupi.WebApi.Controllers
         {
             return Ok(await _mediator.Send(new UserQuery(userId)));
         }
+
+        [AuthorizePermission(PermissionPolicyEnum.User)]
+        [HttpGet("current")]
+        public async Task<IActionResult> GetCurrentUser()
+        {
+            return Ok(await _mediator.Send(new CurrentUserQuery()));
+        }
     }
 }

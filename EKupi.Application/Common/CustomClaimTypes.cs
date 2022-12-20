@@ -10,5 +10,6 @@ namespace EKupi.Application.Common
     {
         public static readonly string FirstName = "FirstName";
         public static readonly string FamilyName = "FamilyName";
+        public static readonly string Permissions = "Permissions";
     }
 }

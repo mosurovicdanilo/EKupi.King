@@ -19,6 +19,7 @@ using EKupi.Infrastructure.Consumers;
 using EKupi.Application.Hubs;
 using System.Security.Claims;
 using EKupi.Domain.Enums;
+using EKupi.Application.Common;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -102,8 +103,8 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddAuthorization(options =>
 {
-    options.AddPolicy("user", policy => policy.RequireClaim("Permissions", PermissionPolicyEnum.User.ToString()));
-    options.AddPolicy("admin", policy => policy.RequireClaim("Permissions", PermissionPolicyEnum.Admin.ToString()));
+    options.AddPolicy("user", policy => policy.RequireClaim(CustomClaimTypes.Permissions, PermissionPolicyEnum.User.ToString()));
+    options.AddPolicy("admin", policy => policy.RequireClaim(CustomClaimTypes.Permissions, PermissionPolicyEnum.Admin.ToString()));
 });
 
 builder.Services.AddScoped<IPrincipal>(f => f.GetRequiredService<IHttpContextAccessor>().HttpContext?.User);
