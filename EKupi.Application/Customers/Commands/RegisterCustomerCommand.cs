@@ -73,7 +73,7 @@ namespace EKupi.Application.Customers.Commands
             }
             else
             {
-                throw new Exception("Something went wrong while registering");
+                throw new Exception($"Something went wrong while registering");
             }
 
             return Unit.Value;

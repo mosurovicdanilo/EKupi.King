@@ -23,10 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\EKupi.Application\EKupi.Application.csproj" />
     <ProjectReference Include="..\EKupi.Domain\EKupi.Domain.csproj" />
     <ProjectReference Include="..\EKupi.Infrastructure\EKupi.Infrastructure.csproj" />

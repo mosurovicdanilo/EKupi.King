@@ -2,6 +2,8 @@
 using EKupi.Application.Customers.Queries;
 using EKupi.Application.Products.Queries;
 using EKupi.Domain.Entities;
+using EKupi.Domain.Enums;
+using EKupi.WebApi.Attributes;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -33,6 +35,7 @@ namespace EKupi.WebApi.Controllers
             return Ok(await _mediator.Send(command));
         }
 
+        [AuthorizePermission(PermissionPolicyEnum.User)]
         [HttpPost("logout")]
         public async Task<IActionResult> Logout()
         {
@@ -40,12 +43,14 @@ namespace EKupi.WebApi.Controllers
             return Ok();
         }
 
+        [AuthorizePermission(PermissionPolicyEnum.Admin)]
         [HttpGet("users/{pageNumber}/{pageSize}")]
         public async Task<IActionResult> GetProductList(int pageNumber, int pageSize)
         {
             return Ok(await _mediator.Send(new UserListQuery(pageNumber, pageSize)));
         }
 
+        [AuthorizePermission(PermissionPolicyEnum.User)]
         [HttpGet("user/{userid?}")]
         public async Task<IActionResult> GetUser(string? userId = null)
         {

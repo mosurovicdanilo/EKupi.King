@@ -17,6 +17,8 @@ using EKupi.Infrastructure.AppSettings;
 using MassTransit;
 using EKupi.Infrastructure.Consumers;
 using EKupi.Application.Hubs;
+using System.Security.Claims;
+using EKupi.Domain.Enums;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -97,6 +99,12 @@ builder.Services.AddAuthentication(options =>
         };
     }
 );
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("user", policy => policy.RequireClaim("Permissions", PermissionPolicyEnum.User.ToString()));
+    options.AddPolicy("admin", policy => policy.RequireClaim("Permissions", PermissionPolicyEnum.Admin.ToString()));
+});
 
 builder.Services.AddScoped<IPrincipal>(f => f.GetRequiredService<IHttpContextAccessor>().HttpContext?.User);
 

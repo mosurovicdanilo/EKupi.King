@@ -2,6 +2,7 @@
 using EKupi.Application.Common.Exceptions;
 using EKupi.Application.Interfaces;
 using EKupi.Domain.Entities;
+using EKupi.Domain.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -45,8 +46,14 @@ namespace EKupi.Application.Customers.Commands
                 {
                     new Claim(ClaimTypes.NameIdentifier, user.Id),
                     new Claim(CustomClaimTypes.FirstName, user.FirstName),
-                    new Claim(CustomClaimTypes.FamilyName, user.FamilyName)
+                    new Claim(CustomClaimTypes.FamilyName, user.FamilyName),
+                    new Claim("Permissions", PermissionPolicyEnum.User.ToString())
                 };
+
+                if(request.Username == "admin")
+                {
+                    authClaims.Add(new Claim("Permissions", PermissionPolicyEnum.Admin.ToString()));
+                }
 
                 var key = new SymmetricSecurityKey(Encoding.Default.GetBytes(_tokenSettings.Secret));
 

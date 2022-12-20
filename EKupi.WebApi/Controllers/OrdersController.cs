@@ -1,6 +1,8 @@
 ﻿using EKupi.Application.Hubs;
 using EKupi.Application.Orders.Commands;
 using EKupi.Application.Orders.Queries;
+using EKupi.Domain.Enums;
+using EKupi.WebApi.Attributes;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -23,17 +25,20 @@ namespace EKupi.WebApi.Controllers
             _hub = hub;
         }
 
+        [AuthorizePermission(PermissionPolicyEnum.User)]
         [HttpGet("{customerId}")]
         public async Task<IActionResult> GetOrders(string customerId)
         {
             return Ok(await _mediator.Send(new OrderQuery(customerId)));
         }
 
+        [AuthorizePermission(PermissionPolicyEnum.User)]
         [HttpPost]
         public async Task<IActionResult> CreateOrder(CreateOrderCommand command)
         {
             return Ok(await _mediator.Send(command));
         }
+
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteOrder(long id)
@@ -41,19 +46,21 @@ namespace EKupi.WebApi.Controllers
             return Ok(await _mediator.Send(new DeleteOrderCommand(id)));
         }
 
-        [AllowAnonymous]
+        [AuthorizePermission(PermissionPolicyEnum.Admin)]
         [HttpGet("mostSoldProducts")]
         public async Task<IActionResult> GetMostSoldProducts()
         {
             return Ok(await _mediator.Send(new MostSoldProductsQuery()));
         }
 
+        [AuthorizePermission(PermissionPolicyEnum.Admin)]
         [HttpGet("customerExpenditure")]
         public async Task<IActionResult> GetCustomerExpenditure()
         {
             return Ok(await _mediator.Send(new CustomersExpenditureQuery()));
         }
 
+        [AuthorizePermission(PermissionPolicyEnum.Admin)]
         [HttpGet("productSalesPerMonth")]
         public async Task<IActionResult> GetProductSalesPerMonth()
         {
