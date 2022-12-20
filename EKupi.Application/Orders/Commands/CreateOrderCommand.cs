@@ -63,7 +63,7 @@ namespace EKupi.Application.Orders.Commands
             var productsWithInsufficientUnitsInStock = products.Where(x => x.UnitsInStock - request.OrderDetails.Where(y => y.ProductId == x.Id).Sum(u => u.Quantity) < 0);
             if (productsWithInsufficientUnitsInStock.Any())
             {
-                var error = "Following products have insufficient units in stock: " + string.Join(',', products.Select(x => x.Name).ToArray());
+                var error = "Following products have insufficient units in stock: " + string.Join(',', productsWithInsufficientUnitsInStock.Select(x => x.Name).ToArray());
                 throw new ForbiddenException(error);
             }
 
