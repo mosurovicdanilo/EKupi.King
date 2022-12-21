@@ -15,14 +15,14 @@ namespace EKupi.Application.Products.Queries
     {
         public ProductByIdQueryResponse()
         {
-            SubProducts = new List<string>();
+            SubProducts = new List<SubproductDTO>();
         }
         public long Id { get; set; }
         public string Name { get; set; }
         public string CategoryName { get; set; }
         public int UnitsInStock { get; set; }
         public decimal UnitPrice { get; set; }
-        public IEnumerable<string> SubProducts { get; set; }
+        public IEnumerable<SubproductDTO> SubProducts { get; set; }
     }
 
     public class ProductByIdQuery : IRequest<ProductByIdQueryResponse>
@@ -44,7 +44,7 @@ namespace EKupi.Application.Products.Queries
 
         public async Task<ProductByIdQueryResponse> Handle(ProductByIdQuery request, CancellationToken cancellationToken)
         {
-            var product = await _context.Products.Include(x => x.Category).Include(x => x.SubProducts).FirstOrDefaultAsync(p => p.Id == request.ProductId);
+            var product = await _context.Products.Include(x => x.Category).Include(x => x.SubProducts).ThenInclude(x => x.RelatedProduct).FirstOrDefaultAsync(p => p.Id == request.ProductId);
 
             if(product != null)
             {
@@ -55,7 +55,14 @@ namespace EKupi.Application.Products.Queries
                     CategoryName = product.Category.Name,
                     UnitPrice = product.UnitPrice,
                     UnitsInStock = product.UnitsInStock,
-                    SubProducts = product.SubProducts.Select(sp => sp.RelatedProduct.Name)
+                    SubProducts = product.SubProducts.Select(sp => new SubproductDTO
+                    {
+                        Id = sp.RelatedProduct.Id,
+                        Name = sp.RelatedProduct.Name,
+                        CategoryName = sp.RelatedProduct.Category.Name,
+                        UnitPrice = sp.RelatedProduct.UnitPrice,
+                        UnitsInStock = sp.RelatedProduct.UnitsInStock
+                    })
                 };
                 return result;
             }

@@ -15,14 +15,23 @@ namespace EKupi.Application.Products.Queries
     {
         public ProductQueryResponse()
         {
-            SubProducts = new List<string>();
+            SubProducts = new List<SubproductDTO>();
         }
         public long Id { get; set; }
         public string Name { get; set; }
         public string CategoryName { get; set; }
         public int UnitsInStock { get; set; }
         public decimal UnitPrice { get; set; }
-        public IEnumerable<string> SubProducts { get; set; }
+        public IEnumerable<SubproductDTO> SubProducts { get; set; }
+    }
+
+    public class SubproductDTO
+    {
+        public long Id { get; set; }
+        public string Name { get; set; }
+        public string CategoryName { get; set; }
+        public int UnitsInStock { get; set; }
+        public decimal UnitPrice { get; set; }
     }
 
     public class ProductQuery : IRequest<IEnumerable<ProductQueryResponse>>
@@ -52,7 +61,13 @@ namespace EKupi.Application.Products.Queries
                     CategoryName = p.Category.Name,
                     UnitPrice = p.UnitPrice,
                     UnitsInStock = p.UnitsInStock,
-                    SubProducts = p.SubProducts.Select(sp => sp.RelatedProduct.Name)
+                    SubProducts = p.SubProducts.Select(sp => new SubproductDTO {
+                       Id = sp.RelatedProduct.Id,
+                       Name = sp.RelatedProduct.Name,
+                       CategoryName = sp.RelatedProduct.Category.Name,
+                       UnitPrice = sp.RelatedProduct.UnitPrice,
+                       UnitsInStock = sp.RelatedProduct.UnitsInStock
+                    })
                 })
                 .SortBy(request.IsAscending, x => x.UnitPrice)
                 .ToListAsync(cancellationToken);

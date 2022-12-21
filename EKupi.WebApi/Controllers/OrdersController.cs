@@ -60,7 +60,7 @@ namespace EKupi.WebApi.Controllers
             return Ok(await _mediator.Send(new CustomersExpenditureQuery()));
         }
 
-        [AuthorizePermission(PermissionPolicyEnum.Admin)]
+        //[AuthorizePermission(PermissionPolicyEnum.Admin)]
         [HttpGet("productSalesPerMonth")]
         public async Task<IActionResult> GetProductSalesPerMonth()
         {

@@ -33,7 +33,7 @@ namespace EKupi.Application.Orders.Queries
             var result = await _context.Customers.Select(x => new CustomersExpenditureResponse
             {
                 FullName = $"{x.FirstName} {x.FamilyName}" ,
-                Total = x.Orders.SelectMany(o => o.OrderDetails).Sum(x => x.Price)
+                Total = x.Orders.SelectMany(o => o.OrderDetails).Sum(x => x.Total)
             }).OrderByDescending(x => x.Total)
             .ToListAsync();
 
