@@ -45,6 +45,7 @@ namespace EKupi.Application.Customers.Commands
                 var authClaims = new List<Claim>
                 {
                     new Claim(ClaimTypes.NameIdentifier, user.Id),
+                    new Claim(CustomClaimTypes.Username, user.UserName),
                     new Claim(CustomClaimTypes.FirstName, user.FirstName),
                     new Claim(CustomClaimTypes.FamilyName, user.FamilyName),
                     new Claim(CustomClaimTypes.Permissions, PermissionPolicyEnum.User.ToString())

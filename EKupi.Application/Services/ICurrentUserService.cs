@@ -10,6 +10,7 @@ namespace EKupi.Application.Services
     public interface ICurrentUserService
     {
         string UserId { get; set; }
+        string Username { get; set; }
         string FirstName { get; set; }
         string FamilyName { get; set; }
         IList<PermissionPolicyEnum> Permissions { get; set; }

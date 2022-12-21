@@ -8,6 +8,7 @@ namespace EKupi.Application.Common
 {
     public static class CustomClaimTypes
     {
+        public static readonly string Username = "Username";
         public static readonly string FirstName = "FirstName";
         public static readonly string FamilyName = "FamilyName";
         public static readonly string Permissions = "Permissions";

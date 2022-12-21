@@ -45,6 +45,7 @@ namespace EKupi.Application.Customers.Queries
             var user = new CurrentUserQueryResponse
             {
                 Id = _currentUserService.UserId,
+                UserName = _currentUserService.Username,
                 FirstName = _currentUserService.FirstName,
                 FamilyName = _currentUserService.FamilyName,
                 Permissions = _currentUserService.Permissions

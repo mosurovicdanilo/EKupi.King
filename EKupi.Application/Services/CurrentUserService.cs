@@ -21,6 +21,7 @@ namespace EKupi.Infrastructure.Services
             if (principal != null && principal.Identity.IsAuthenticated)
             {
                 UserId = ((ClaimsPrincipal)principal).FindFirstValue(ClaimTypes.NameIdentifier);
+                Username = ((ClaimsPrincipal)principal).FindFirstValue(CustomClaimTypes.Username);
                 FirstName = ((ClaimsPrincipal)principal).FindFirstValue(CustomClaimTypes.FirstName);
                 FamilyName = ((ClaimsPrincipal)principal).FindFirstValue(CustomClaimTypes.FamilyName);
 
@@ -34,6 +35,7 @@ namespace EKupi.Infrastructure.Services
         }
 
         public string UserId { get; set; }
+        public string Username { get; set; }
         public string FirstName { get; set; }
         public string FamilyName { get; set; }
         public IList<PermissionPolicyEnum> Permissions { get; set; }
