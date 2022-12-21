@@ -44,29 +44,29 @@ namespace EKupi.Application.Products.Queries
 
         public async Task<ProductByIdQueryResponse> Handle(ProductByIdQuery request, CancellationToken cancellationToken)
         {
-            var product = await _context.Products.Include(x => x.Category).Include(x => x.SubProducts).ThenInclude(x => x.RelatedProduct).FirstOrDefaultAsync(p => p.Id == request.ProductId);
+            var product = await _context.Products.FirstOrDefaultAsync(p => p.Id == request.ProductId);
 
             if(product != null)
             {
-                var result = new ProductByIdQueryResponse
-                {
-                    Id = product.Id,
-                    Name = product.Name,
-                    CategoryName = product.Category.Name,
-                    UnitPrice = product.UnitPrice,
-                    UnitsInStock = product.UnitsInStock,
-                    SubProducts = product.SubProducts.Select(sp => new SubproductDTO
+                var result = await _context.Products.Where(p => p.Id == request.ProductId)
+                    .Select(p => new ProductByIdQueryResponse
                     {
-                        Id = sp.RelatedProduct.Id,
-                        Name = sp.RelatedProduct.Name,
-                        CategoryName = sp.RelatedProduct.Category.Name,
-                        UnitPrice = sp.RelatedProduct.UnitPrice,
-                        UnitsInStock = sp.RelatedProduct.UnitsInStock
-                    })
-                };
+                        Id = p.Id,
+                        Name = p.Name,
+                        CategoryName = p.Category.Name,
+                        UnitPrice = p.UnitPrice,
+                        UnitsInStock = p.UnitsInStock,
+                        SubProducts = p.SubProducts.Select(sp => new SubproductDTO
+                        {
+                            Id = sp.RelatedProduct.Id,
+                            Name = sp.RelatedProduct.Name,
+                            CategoryName = sp.RelatedProduct.Category.Name,
+                            UnitPrice = sp.RelatedProduct.UnitPrice,
+                            UnitsInStock = sp.RelatedProduct.UnitsInStock
+                        })
+                    }).FirstOrDefaultAsync(cancellationToken);
                 return result;
             }
-
             throw new NotFoundException("Invalid product id");
         }
     }
