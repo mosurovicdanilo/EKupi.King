@@ -1,6 +1,8 @@
 ﻿using EKupi.Application.Common;
 using EKupi.Application.Common.Exceptions;
+using EKupi.Application.Customers.Queries;
 using EKupi.Application.Interfaces;
+using EKupi.Application.Services.Auth;
 using EKupi.Domain.Entities;
 using EKupi.Domain.Enums;
 using MediatR;
@@ -14,58 +16,49 @@ using System.Text;
 
 namespace EKupi.Application.Customers.Commands
 {
-    public class LoginCustomerCommand : IRequest<string>
+    public class LoginCustomerCommandResponse : UserDTO
+    {
+        public LoginCustomerCommandResponse()
+        {
+            Permissions = new List<PermissionPolicyEnum>();
+        }
+        public string Token { get; set; }
+        public IEnumerable<PermissionPolicyEnum> Permissions { get; set; }
+    }
+    public class LoginCustomerCommand : IRequest<LoginCustomerCommandResponse>
     {
         public string Username { get; set; }
         public string Password { get; set; }
     }
 
-    public class LoginCustomerCommandHandler : IRequestHandler<LoginCustomerCommand, string>
+    public class LoginCustomerCommandHandler : IRequestHandler<LoginCustomerCommand, LoginCustomerCommandResponse>
     {
         private readonly UserManager<Customer> _userManager;
         private readonly ITokenSettings _tokenSettings;
         private IHttpContextAccessor _httpContextAccessor;
+        private IAuthService _authService;
 
         public LoginCustomerCommandHandler(
             UserManager<Customer> userManager,
             ITokenSettings tokenSettings,
-            IHttpContextAccessor httpContextAccessor)
+            IHttpContextAccessor httpContextAccessor,
+            IAuthService authService)
         {
             _userManager = userManager;
             _tokenSettings = tokenSettings;
             _httpContextAccessor = httpContextAccessor;
+            _authService = authService;
         }
 
-        public async Task<string> Handle(LoginCustomerCommand request, CancellationToken cancellationToken)
+        public async Task<LoginCustomerCommandResponse> Handle(LoginCustomerCommand request, CancellationToken cancellationToken)
         {
             var user = await _userManager.FindByNameAsync(request.Username);
 
             if (user != null && await _userManager.CheckPasswordAsync(user, request.Password))
             {
-                var authClaims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.NameIdentifier, user.Id),
-                    new Claim(CustomClaimTypes.Username, user.UserName),
-                    new Claim(CustomClaimTypes.FirstName, user.FirstName),
-                    new Claim(CustomClaimTypes.FamilyName, user.FamilyName),
-                    new Claim(CustomClaimTypes.Permissions, PermissionPolicyEnum.User.ToString())
-                };
+                var result = _authService.GetLoggedInUserData(user);
 
-                if(request.Username == "admin")
-                {
-                    authClaims.Add(new Claim(CustomClaimTypes.Permissions, PermissionPolicyEnum.Admin.ToString()));
-                }
-
-                var key = new SymmetricSecurityKey(Encoding.Default.GetBytes(_tokenSettings.Secret));
-
-                var token = new JwtSecurityToken(
-                    expires: DateTime.UtcNow.AddDays(14),
-                    claims: authClaims,
-                    signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha512)
-                );
-                var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
-
-                return tokenString;
+                return result;
             }
             throw new NotFoundException("Invalid credentials");
         }

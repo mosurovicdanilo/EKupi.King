@@ -20,6 +20,7 @@ using EKupi.Application.Hubs;
 using System.Security.Claims;
 using EKupi.Domain.Enums;
 using EKupi.Application.Common;
+using EKupi.Application.Services.Auth;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -109,6 +110,7 @@ builder.Services.AddAuthorization(options =>
 
 builder.Services.AddScoped<IPrincipal>(f => f.GetRequiredService<IHttpContextAccessor>().HttpContext?.User);
 
+builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
 
 builder.Services.AddHttpContextAccessor();

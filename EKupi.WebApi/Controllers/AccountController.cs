@@ -1,5 +1,6 @@
 ﻿using EKupi.Application.Customers.Commands;
 using EKupi.Application.Customers.Queries;
+using EKupi.Application.Orders.Commands;
 using EKupi.Application.Products.Queries;
 using EKupi.Domain.Entities;
 using EKupi.Domain.Enums;
@@ -45,7 +46,7 @@ namespace EKupi.WebApi.Controllers
 
         [AuthorizePermission(PermissionPolicyEnum.Admin)]
         [HttpGet("users/{pageNumber}/{pageSize}")]
-        public async Task<IActionResult> GetProductList(int pageNumber, int pageSize)
+        public async Task<IActionResult> GetUserList(int pageNumber, int pageSize)
         {
             return Ok(await _mediator.Send(new UserListQuery(pageNumber, pageSize)));
         }
@@ -57,11 +58,10 @@ namespace EKupi.WebApi.Controllers
             return Ok(await _mediator.Send(new UserQuery(userId)));
         }
 
-        [AuthorizePermission(PermissionPolicyEnum.User)]
-        [HttpGet("current")]
-        public async Task<IActionResult> GetCurrentUser()
+        [HttpPut]
+        public async Task<IActionResult> EditUser(EditUserCommand command)
         {
-            return Ok(await _mediator.Send(new CurrentUserQuery()));
+            return Ok(await _mediator.Send(command));
         }
     }
 }
