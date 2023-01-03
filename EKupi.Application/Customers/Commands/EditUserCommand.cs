@@ -8,6 +8,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace EKupi.Application.Customers.Commands
     public class EditUserCommand : IRequest<LoginCustomerCommandResponse>
     {
         public string Id { get; set; }
-        public string UserName { get; set; }
+        public string Username { get; set; }
         public string OldPassword { get; set; }
         public string? NewPassword { get; set; }
         public string FirstName { get; set; }
@@ -30,7 +31,7 @@ namespace EKupi.Application.Customers.Commands
     {
         public EditUserCommandValidator()
         {
-            RuleFor(c => c.UserName)
+            RuleFor(c => c.Username)
                 .NotEmpty()
                 .MaximumLength(50);
 
@@ -40,7 +41,8 @@ namespace EKupi.Application.Customers.Commands
             RuleFor(c => c.NewPassword)
                 .NotEmpty()
                 .MinimumLength(5)
-                .NotEqual(c => c.OldPassword);
+                .NotEqual(c => c.OldPassword)
+                .When(c => !c.NewPassword.IsNullOrEmpty());
 
             RuleFor(c => c.FirstName)
                 .NotEmpty()
@@ -69,27 +71,26 @@ namespace EKupi.Application.Customers.Commands
 
         public async Task<LoginCustomerCommandResponse> Handle(EditUserCommand request, CancellationToken cancellationToken)
         {
-            var user = await _context.Customers.FirstOrDefaultAsync(x => x.Id == request.Id);
+            var user = await _userManager.FindByIdAsync(request.Id);
 
-            if (user == null && !await _userManager.CheckPasswordAsync(user, request.OldPassword))
+            if (user == null || !await _userManager.CheckPasswordAsync(user, request.OldPassword))
             {
                 throw new NotFoundException("Invalid credentials");
             }
 
-            if(_context.Customers.Where(x => x.UserName == request.UserName).Any())
+            if(user.UserName != request.Username && _context.Customers.Where(x => x.UserName == request.Username).Any())
             {
-                throw new ForbiddenException($"Username {request.UserName} already exists!");
+                throw new ForbiddenException($"Username {request.Username} already exists!");
             }
 
-            if(request.NewPassword != null)
-            {
-                await _userManager.ChangePasswordAsync(user, request.OldPassword, request.NewPassword);
-            }
-
-            user.UserName = request.UserName;
+            user.UserName = request.Username;
             user.FirstName = request.FirstName;
             user.FamilyName = request.FamilyName;
 
+            if (request.NewPassword != null)
+            {
+                await _userManager.ChangePasswordAsync(user, request.OldPassword, request.NewPassword);
+            }
             await _context.SaveChangesAsync(cancellationToken);
 
             var result = _authService.GetLoggedInUserData(user);
