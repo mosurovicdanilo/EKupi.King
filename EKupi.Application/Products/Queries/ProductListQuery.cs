@@ -77,7 +77,7 @@ namespace EKupi.Application.Products.Queries
                 .Take(request.PageSize)
                 .ToListAsync(cancellationToken);
 
-            var total = _context.Products.Count();
+            var total = _context.Products.Where(x => !x.IsDeleted).Count();
             var result = new ProductListQueryResponse { Products = data, TotalItems = total };
 
             return result;
