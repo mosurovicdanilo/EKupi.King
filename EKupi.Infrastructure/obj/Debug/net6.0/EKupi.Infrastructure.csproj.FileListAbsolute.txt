@@ -1,0 +1,17 @@
+C:\Users\graziano.kaluza\Documents\KingICT_Projects\EKupi.King\EKupi.Infrastructure\bin\Debug\net6.0\EKupi.Infrastructure.deps.json
+C:\Users\graziano.kaluza\Documents\KingICT_Projects\EKupi.King\EKupi.Infrastructure\bin\Debug\net6.0\EKupi.Infrastructure.runtimeconfig.json
+C:\Users\graziano.kaluza\Documents\KingICT_Projects\EKupi.King\EKupi.Infrastructure\bin\Debug\net6.0\EKupi.Infrastructure.dll
+C:\Users\graziano.kaluza\Documents\KingICT_Projects\EKupi.King\EKupi.Infrastructure\bin\Debug\net6.0\EKupi.Infrastructure.pdb
+C:\Users\graziano.kaluza\Documents\KingICT_Projects\EKupi.King\EKupi.Infrastructure\bin\Debug\net6.0\EKupi.Domain.dll
+C:\Users\graziano.kaluza\Documents\KingICT_Projects\EKupi.King\EKupi.Infrastructure\bin\Debug\net6.0\EKupi.Domain.pdb
+C:\Users\graziano.kaluza\Documents\KingICT_Projects\EKupi.King\EKupi.Infrastructure\obj\Debug\net6.0\EKupi.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\graziano.kaluza\Documents\KingICT_Projects\EKupi.King\EKupi.Infrastructure\obj\Debug\net6.0\EKupi.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\graziano.kaluza\Documents\KingICT_Projects\EKupi.King\EKupi.Infrastructure\obj\Debug\net6.0\EKupi.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\graziano.kaluza\Documents\KingICT_Projects\EKupi.King\EKupi.Infrastructure\obj\Debug\net6.0\EKupi.Infrastructure.AssemblyInfo.cs
+C:\Users\graziano.kaluza\Documents\KingICT_Projects\EKupi.King\EKupi.Infrastructure\obj\Debug\net6.0\EKupi.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\graziano.kaluza\Documents\KingICT_Projects\EKupi.King\EKupi.Infrastructure\obj\Debug\net6.0\EKupi.Infrastructure.csproj.CopyComplete
+C:\Users\graziano.kaluza\Documents\KingICT_Projects\EKupi.King\EKupi.Infrastructure\obj\Debug\net6.0\EKupi.Infrastructure.dll
+C:\Users\graziano.kaluza\Documents\KingICT_Projects\EKupi.King\EKupi.Infrastructure\obj\Debug\net6.0\refint\EKupi.Infrastructure.dll
+C:\Users\graziano.kaluza\Documents\KingICT_Projects\EKupi.King\EKupi.Infrastructure\obj\Debug\net6.0\EKupi.Infrastructure.pdb
+C:\Users\graziano.kaluza\Documents\KingICT_Projects\EKupi.King\EKupi.Infrastructure\obj\Debug\net6.0\EKupi.Infrastructure.genruntimeconfig.cache
+C:\Users\graziano.kaluza\Documents\KingICT_Projects\EKupi.King\EKupi.Infrastructure\obj\Debug\net6.0\ref\EKupi.Infrastructure.dll
