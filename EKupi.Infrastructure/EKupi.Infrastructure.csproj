@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Migrations\" />
     <Folder Include="Services\" />
     <Folder Include="Configurations\" />
   </ItemGroup>
@@ -26,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\EKupi.Application\EKupi.Application.csproj" />
     <ProjectReference Include="..\EKupi.Domain\EKupi.Domain.csproj" />
   </ItemGroup>
 

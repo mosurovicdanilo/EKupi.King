@@ -1504,11 +1504,11 @@
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
           "EKupi.Domain": "1.0.0",
-          "EKupi.Infrastructure": "1.0.0",
           "FluentValidation": "11.4.0",
           "MediatR.Extensions.Microsoft.DependencyInjection": "11.0.0",
           "Microsoft.AspNetCore.Http": "2.2.2",
-          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.11"
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.11",
+          "System.IdentityModel.Tokens.Jwt": "6.21.0"
         },
         "compile": {
           "bin/placeholder/EKupi.Application.dll": {}
@@ -1534,6 +1534,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
+          "EKupi.Application": "1.0.0",
           "EKupi.Domain": "1.0.0",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.11",
           "Microsoft.EntityFrameworkCore.SqlServer": "7.0.2"
@@ -4285,10 +4286,13 @@
     "net6.0": [
       "EKupi.Application >= 1.0.0",
       "EKupi.Domain >= 1.0.0",
+      "EKupi.Infrastructure >= 1.0.0",
       "MediatR.Extensions.Microsoft.DependencyInjection >= 11.0.0",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 6.0.11",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 6.0.11",
+      "Microsoft.EntityFrameworkCore >= 7.0.2",
       "Microsoft.EntityFrameworkCore.Design >= 7.0.2",
+      "Microsoft.EntityFrameworkCore.Relational >= 7.0.2",
       "Microsoft.EntityFrameworkCore.SqlServer >= 7.0.2",
       "Microsoft.EntityFrameworkCore.Tools >= 7.0.2",
       "Swashbuckle.AspNetCore >= 6.2.3"
@@ -4326,6 +4330,9 @@
             },
             "C:\\Users\\graziano.kaluza\\Documents\\KingICT_Projects\\EKupi.King\\EKupi.Domain\\EKupi.Domain.csproj": {
               "projectPath": "C:\\Users\\graziano.kaluza\\Documents\\KingICT_Projects\\EKupi.King\\EKupi.Domain\\EKupi.Domain.csproj"
+            },
+            "C:\\Users\\graziano.kaluza\\Documents\\KingICT_Projects\\EKupi.King\\EKupi.Infrastructure\\EKupi.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\graziano.kaluza\\Documents\\KingICT_Projects\\EKupi.King\\EKupi.Infrastructure\\EKupi.Infrastructure.csproj"
             }
           }
         }
@@ -4352,9 +4359,17 @@
             "target": "Package",
             "version": "[6.0.11, )"
           },
+          "Microsoft.EntityFrameworkCore": {
+            "target": "Package",
+            "version": "[7.0.2, )"
+          },
           "Microsoft.EntityFrameworkCore.Design": {
             "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
             "suppressParent": "All",
+            "target": "Package",
+            "version": "[7.0.2, )"
+          },
+          "Microsoft.EntityFrameworkCore.Relational": {
             "target": "Package",
             "version": "[7.0.2, )"
           },

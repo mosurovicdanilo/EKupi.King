@@ -15,3 +15,5 @@ C:\Users\graziano.kaluza\Documents\KingICT_Projects\EKupi.King\EKupi.Infrastruct
 C:\Users\graziano.kaluza\Documents\KingICT_Projects\EKupi.King\EKupi.Infrastructure\obj\Debug\net6.0\EKupi.Infrastructure.pdb
 C:\Users\graziano.kaluza\Documents\KingICT_Projects\EKupi.King\EKupi.Infrastructure\obj\Debug\net6.0\EKupi.Infrastructure.genruntimeconfig.cache
 C:\Users\graziano.kaluza\Documents\KingICT_Projects\EKupi.King\EKupi.Infrastructure\obj\Debug\net6.0\ref\EKupi.Infrastructure.dll
+C:\Users\graziano.kaluza\Documents\KingICT_Projects\EKupi.King\EKupi.Infrastructure\bin\Debug\net6.0\EKupi.Application.dll
+C:\Users\graziano.kaluza\Documents\KingICT_Projects\EKupi.King\EKupi.Infrastructure\bin\Debug\net6.0\EKupi.Application.pdb

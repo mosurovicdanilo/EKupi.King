@@ -2,9 +2,7 @@ C:\Users\graziano.kaluza\Documents\KingICT_Projects\EKupi.King\EKupi.Application
 C:\Users\graziano.kaluza\Documents\KingICT_Projects\EKupi.King\EKupi.Application\bin\Debug\net6.0\EKupi.Application.dll
 C:\Users\graziano.kaluza\Documents\KingICT_Projects\EKupi.King\EKupi.Application\bin\Debug\net6.0\EKupi.Application.pdb
 C:\Users\graziano.kaluza\Documents\KingICT_Projects\EKupi.King\EKupi.Application\bin\Debug\net6.0\EKupi.Domain.dll
-C:\Users\graziano.kaluza\Documents\KingICT_Projects\EKupi.King\EKupi.Application\bin\Debug\net6.0\EKupi.Infrastructure.dll
 C:\Users\graziano.kaluza\Documents\KingICT_Projects\EKupi.King\EKupi.Application\bin\Debug\net6.0\EKupi.Domain.pdb
-C:\Users\graziano.kaluza\Documents\KingICT_Projects\EKupi.King\EKupi.Application\bin\Debug\net6.0\EKupi.Infrastructure.pdb
 C:\Users\graziano.kaluza\Documents\KingICT_Projects\EKupi.King\EKupi.Application\obj\Debug\net6.0\EKupi.Application.csproj.AssemblyReference.cache
 C:\Users\graziano.kaluza\Documents\KingICT_Projects\EKupi.King\EKupi.Application\obj\Debug\net6.0\EKupi.Application.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\graziano.kaluza\Documents\KingICT_Projects\EKupi.King\EKupi.Application\obj\Debug\net6.0\EKupi.Application.AssemblyInfoInputs.cache

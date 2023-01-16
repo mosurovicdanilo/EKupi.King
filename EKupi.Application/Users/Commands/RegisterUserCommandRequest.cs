@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EKupi.Domain.Entities;
-using EKupi.Infrastructure;
 using EKupi.Application.Interfaces;
 
 namespace EKupi.Application.Users.Commands
@@ -47,7 +46,6 @@ namespace EKupi.Application.Users.Commands
 
         public async Task<Unit> Handle(RegisterUserCommandRequest request, CancellationToken cancellationToken)
         {
-            System.Diagnostics.Debug.WriteLine("\n********\nIn\n*********\n");
             var user = new User
             {
                 UserName = request.Username,
@@ -65,7 +63,7 @@ namespace EKupi.Application.Users.Commands
             {
                 throw new Exception("Something went wrong!");
             }
-
+  
             return Unit.Value;
         }
     }

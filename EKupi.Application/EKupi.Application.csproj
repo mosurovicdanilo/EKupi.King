@@ -15,11 +15,11 @@
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.11" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.21.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\EKupi.Domain\EKupi.Domain.csproj" />
-    <ProjectReference Include="..\EKupi.Infrastructure\EKupi.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

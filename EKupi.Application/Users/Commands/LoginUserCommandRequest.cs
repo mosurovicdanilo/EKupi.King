@@ -73,6 +73,6 @@ namespace EKupi.Application.Users.Commands
                 });
             }
             return Unit.Value;
-        }
+         }
     }
 }

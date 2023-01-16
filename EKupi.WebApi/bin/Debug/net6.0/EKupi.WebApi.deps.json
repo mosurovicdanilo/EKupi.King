@@ -10,10 +10,13 @@
         "dependencies": {
           "EKupi.Application": "1.0.0",
           "EKupi.Domain": "1.0.0",
+          "EKupi.Infrastructure": "1.0.0",
           "MediatR.Extensions.Microsoft.DependencyInjection": "11.0.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "6.0.11",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.11",
+          "Microsoft.EntityFrameworkCore": "7.0.2",
           "Microsoft.EntityFrameworkCore.Design": "7.0.2",
+          "Microsoft.EntityFrameworkCore.Relational": "7.0.2",
           "Microsoft.EntityFrameworkCore.SqlServer": "7.0.2",
           "Microsoft.EntityFrameworkCore.Tools": "7.0.2",
           "Swashbuckle.AspNetCore": "6.2.3"
@@ -895,11 +898,11 @@
       "EKupi.Application/1.0.0": {
         "dependencies": {
           "EKupi.Domain": "1.0.0",
-          "EKupi.Infrastructure": "1.0.0",
           "FluentValidation": "11.4.0",
           "MediatR.Extensions.Microsoft.DependencyInjection": "11.0.0",
           "Microsoft.AspNetCore.Http": "2.2.2",
-          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.11"
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.11",
+          "System.IdentityModel.Tokens.Jwt": "6.21.0"
         },
         "runtime": {
           "EKupi.Application.dll": {}
@@ -915,6 +918,7 @@
       },
       "EKupi.Infrastructure/1.0.0": {
         "dependencies": {
+          "EKupi.Application": "1.0.0",
           "EKupi.Domain": "1.0.0",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.11",
           "Microsoft.EntityFrameworkCore.SqlServer": "7.0.2"

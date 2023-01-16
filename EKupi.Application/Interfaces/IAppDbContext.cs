@@ -11,6 +11,11 @@ namespace EKupi.Application.Interfaces
     public interface IAppDbContext
     {
         DbSet<User> Users { get; set; }
+        DbSet<Category> Categories { get; set; }
+        DbSet<Order> Orders { get; set; }
+        DbSet<OrderDetail> OrderDetails { get; set; }
+        DbSet<Product> Products { get; set; }
+        DbSet<ProductRelationship> ProductRelationships { get; set; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
